@@ -48,6 +48,7 @@ public class ServiceLocator : MonoBehaviour
         {
             return (T)_services[type];
         }
+        Debug.LogWarning($"{type.Name}Service Not fonud");
         return default(T);
     }
 

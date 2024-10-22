@@ -164,7 +164,6 @@ GameObject:
   m_Component:
   - component: {fileID: 300459642}
   - component: {fileID: 300459641}
-  - component: {fileID: 300459643}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -239,18 +238,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 698039986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &300459643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300459640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299eb25eb9d7eef46974d627b2c44bea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &329606395
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +249,7 @@ GameObject:
   - component: {fileID: 329606396}
   - component: {fileID: 329606397}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: SceneBaseDataBundel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,10 +279,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 329606395}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 638a70d38b836e04da0e9a637b2d40f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e36325fd4cc0f74dbfd9a6343bc02c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bank: {fileID: 1071456481}
+  _moneyBank: {fileID: 1071456481}
+  _furitBank: {fileID: 0}
+  _fishBank: {fileID: 0}
 --- !u!1 &484957646
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb20318f976bd134da6a6be11a09b785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resorge: {fileID: 11400000, guid: bc0fb68f627e0c04aabad3363094cf7f, type: 2}
+  _resorge: {fileID: 11400000, guid: e1496eb6e89bb4c4cbd4b7d806f2de55, type: 2}
   count: 100
 --- !u!4 &527159340
 Transform:
@@ -627,7 +616,6 @@ Transform:
   - {fileID: 1348147250}
   - {fileID: 765055118}
   - {fileID: 300459642}
-  - {fileID: 1298115573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &716473813
@@ -787,10 +775,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resorceAndCount:
-  - resource: {fileID: 11400000, guid: bc0fb68f627e0c04aabad3363094cf7f, type: 2}
+  - resource: {fileID: 11400000, guid: e1496eb6e89bb4c4cbd4b7d806f2de55, type: 2}
     count: 4730
     abcCount: 4,73a
-  - resource: {fileID: 11400000, guid: f2f1493c2a27e2445ae44f576c90e920, type: 2}
+  - resource: {fileID: 11400000, guid: fa33be74e92b13d4aae745f5840f5c67, type: 2}
     count: 3660
     abcCount: 3,66a
 --- !u!1 &1150396209
@@ -823,50 +811,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1298115571
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1298115573}
-  - component: {fileID: 1298115572}
-  m_Layer: 0
-  m_Name: GameObject (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1298115572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298115571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c9a1e6cf4cd5894ab367168e3dd223c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1298115573
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298115571}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6126772, y: -1.2885903, z: 398.4731}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 698039986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1348147246
 GameObject:

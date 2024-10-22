@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bank : MonoBehaviour
+public class ResorceBank : MonoBehaviour
 {
     [SerializeField] private List<ResorceAndCount> _resorceAndCount = new List<ResorceAndCount>();
 

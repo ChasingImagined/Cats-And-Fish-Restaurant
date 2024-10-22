@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4d5ac313c6ce674587e013d1879a79a, type: 3}
-  m_Name: GoldFishMoney
+  m_Script: {fileID: 11500000, guid: 8481fd0c19f819a4a9308bad89815732, type: 3}
+  m_Name: Meal
   m_EditorClassIdentifier: 
+  _id: 
   _name:
     m_TableReference:
       m_TableCollectionName: 
@@ -21,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _description:
+  _descripton:
     m_TableReference:
       m_TableCollectionName: 
     m_TableEntryReference:
@@ -30,7 +31,10 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  _icon: {fileID: 0}
+  _obj: {fileID: 0}
+  _price: 0
+  _abcNumer: 
+  _preparationTime: 0
   references:
     version: 2
     RefIds: []
