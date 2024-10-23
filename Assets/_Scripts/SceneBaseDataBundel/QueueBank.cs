@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class QueueBank
 {
-
+    //kuyrukalrý türlereine göre depola.
     private Dictionary<Type, Queue<IQueueable>> _queues =new();
 
  
-
+    // T tipi veri içeren kuyruktan elman çýkarýr.
     public T DeQueueable<T>() where T : class, IQueueable
     {
         if (_queues.ContainsKey(typeof(T))){
@@ -26,6 +26,7 @@ public class QueueBank
         return null;
     }
 
+    //T tipi veri içeren kuyruga elman ekleler.
     public void EnQueueable<T>(T queueable) where T : class, IQueueable
     {
         if(queueable == null) return;
@@ -43,4 +44,5 @@ public class QueueBank
     }
 }
 
+// Kuyruga alýnablirligi sýnrlama amçlý interface;
 public interface IQueueable { }

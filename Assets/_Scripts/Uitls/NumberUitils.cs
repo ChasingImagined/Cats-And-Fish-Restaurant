@@ -8,6 +8,7 @@ namespace ChasingImagined
 {
     namespace Uitls
     {
+        //Sayýlarý binlik tabanda ifade etmek için bir sýnýf
         public static class ABCNumbers
         {
             private static char[] _alfbet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
@@ -16,14 +17,14 @@ namespace ChasingImagined
             private static char[] _numeric = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '.' };
 
 
-            // abc formatlý syýyý  normal double syýya çevirir
+            // abc formatlý syýyý  normal double syýya çevirir.
             public static (double, bool) AbcToNumber(string abc)
             {
 
                 double number = 0;
                 double number2 = 0;
 
-                //ön eki sayýya dönüþtürmeyi dene
+                //ön eki sayýya dönüþtürmeyi dene.
                 bool numcontrol = double.TryParse(RemoveCharacters(abc, _alfbet), out number);
                 if (!numcontrol)
                 {
@@ -31,10 +32,10 @@ namespace ChasingImagined
                     return (number, false);
                 }
 
-                //sadece son abc li eki al
+                //sadece son abc li eki al.
                 string lit = RemoveCharacters(abc, _numeric);
 
-                //abcli eki binlik katsyý syýsna dönüþtür
+                //abcli eki binlik katsyý syýsna dönüþtür.
                 int pow = AbcToPow(lit);
 
 
@@ -59,7 +60,7 @@ namespace ChasingImagined
 
             }
 
-            //double syýyýyý abc syý formtýa dönüþtürür
+            //double syýyýyý abc syý formtýa dönüþtürür.
             public static (string, bool) NumberToAbc(double number)
             {
                 if (number == Mathf.Infinity) number = double.MaxValue;
@@ -77,7 +78,7 @@ namespace ChasingImagined
 
             }
 
-            // abc son ekini 3lü basmk syýsýsý syýsýnýý a dönüþtrür 
+            // abc son ekini Üçlü basamk syýsýsý syýsýnýý a dönüþtrür. 
             public static int AbcToPow(string abc)
             {
                 int pow = 0;
@@ -86,26 +87,26 @@ namespace ChasingImagined
                 for (int i = 0; i < abc.Length; i++)
                 {
                     int charValue = Array.IndexOf(_alfbet, abc[i]);
-                    if (charValue == -1) // Eðer abc içinde alfabede olmayan bir karakter varsa hata ver
+                    if (charValue == -1) // Eðer abc içinde alfabede olmayan bir karakter varsa hata ver.
                     {
                         Debug.LogError("Geçersiz karakter: " + abc[i]);
                         return -1;
                     }
 
-                    pow = pow * baseLength + (charValue + 1); // +1 ekliyoruz çünkü 1'den baþlamalý
+                    pow = pow * baseLength + (charValue + 1); // +1 ekliyoruz çünkü 1'den baþlamalý.
                 }
 
                 return pow;
             }
 
 
-            // 3lü basmk syýsýsý syýsýný abc sonekine dönüþtürür
+            // Üçlü basamk syýsýsý syýsýný abc sonekine dönüþtürür.
             public static string PowToabc(int pow)
             {
                 string abc = "";
                 int baseLength = _alfbet.Length;
 
-                // basmk syýsý yok sa boþ ek gönder
+                // Basamk syýsý yoksa boþ ek gönder.
                 if (pow <= 0)
                 {
                     return "";
@@ -123,12 +124,12 @@ namespace ChasingImagined
                 return abc;
             }
 
-            // bir stringten verilen birdizideki tüm kakterleri siler
+            // Bir stringten verilen birdizideki tüm kakterleri siler.
             public static string RemoveCharacters(string input, char[] charactersToRemove)
             {
                 foreach (char c in charactersToRemove)
                 {
-                    input = input.Replace(c.ToString(), string.Empty); // Karakteri sil
+                    input = input.Replace(c.ToString(), string.Empty); // Karakteri sil.
                 }
 
                 return input;

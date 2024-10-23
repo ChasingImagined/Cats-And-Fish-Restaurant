@@ -16,47 +16,54 @@ public class SceneBaseDataBundel : MonoBehaviour,IService
 
 
     [Header("Banks")]
-    [SerializeField] private  ResorceBank _moneyBank;
-    [SerializeField] private  ResorceBank _furitBank;
-    [SerializeField] private  ResorceBank _fishBank;
-
+    [SerializeField] private  ResourceBankBase<Money>         _moneyBank;
+    [SerializeField] private  ResourceBankBase<FuritMoney>    _furitBank;
+    [SerializeField] private  ResourceBankBase<FishMoney>     _fishBank;
+    [SerializeField] private  ResourceBankBase<OtherRawMoney> _otherRawBank;
 
 
     [Header("Queues")]
 
-    private QueueBank _queueBank = new();
+    //Çlýþmaya hazýrurmadki makinleri ve çlýþanlarý depolar.
+    private QueueBank _readyToWorkQueueBank = new();
 
 
 
 
 
     #region ResourceBank Get Funcitons
-    public ResorceBank GetMoneyBank()
+    public ResourceBankBase<Money> GetMoneyBank()
     {
         if(_moneyBank == null) Debug.LogWarning("Money Bank null");
         return _moneyBank;
     }
 
-    public ResorceBank GetFuritBank()
+    public ResourceBankBase<FuritMoney> GetFuritBank()
     {
         if (_furitBank == null) Debug.LogWarning("Furit Bank null");
         return _furitBank;
     }
 
-    public ResorceBank GetFishBank()
+    public ResourceBankBase<FishMoney> GetFishBank()
     {
         if (_fishBank == null) Debug.LogWarning("Fish Bank null");
         return _fishBank;
     }
 
-    #endregion
-    
-    
-
-
-    public QueueBank GetQueueBank()
+    public ResourceBankBase<OtherRawMoney> GetOtherRawBank()
     {
-        return _queueBank;
+        if (_otherRawBank == null) Debug.LogWarning("Other Raw Bank null");
+        return _otherRawBank ;
+    }
+
+    #endregion
+
+
+
+
+    public QueueBank GetReadyToWorkQueueBank()
+    {
+        return _readyToWorkQueueBank;
     }
     
 

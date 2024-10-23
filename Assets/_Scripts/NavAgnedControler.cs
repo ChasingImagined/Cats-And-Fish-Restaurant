@@ -22,6 +22,7 @@ public class NavAgnedControler : MonoBehaviour
     }
     private void Update()
     {
+        if(target ==null) return;
         agent.SetDestination(target.position);
     }
 }

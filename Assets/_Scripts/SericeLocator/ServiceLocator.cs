@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ServiceLocator : MonoBehaviour
 {
-    // Sahne bazlý singleton instance
     private static ServiceLocator _instance;
 
 
     public static ServiceLocator Instance
     {
         
-
         get
         {
             if (_instance == null)
@@ -29,6 +27,33 @@ public class ServiceLocator : MonoBehaviour
 
 
     private Dictionary<Type, IService> _services = new Dictionary<Type, IService>();
+
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
+        else if(_instance != this) Destroy(this.gameObject);
+        
+    }
+
+    void OnSceneUnloaded(Scene scene)
+    {
+        if (_instance == this)
+        {
+            _services.Clear();
+           
+        }
+        
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
 
     // Servis eklemek için
     public void RegisterService<T>(T service) where T : IService
