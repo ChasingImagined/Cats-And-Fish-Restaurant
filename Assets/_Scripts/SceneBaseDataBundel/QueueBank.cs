@@ -39,7 +39,7 @@ public class QueueBank
         }
         else
         {
-            _queues[typeof(T)].Enqueue(queueable);
+            if(!_queues[typeof(T)].Contains(queueable))_queues[typeof(T)].Enqueue(queueable);
         }
     }
 }

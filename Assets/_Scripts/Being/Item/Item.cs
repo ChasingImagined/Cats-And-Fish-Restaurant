@@ -2,8 +2,6 @@ using ChasingImagined.Uitls;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
-
 
 
 public abstract class Item : Being
@@ -16,6 +14,14 @@ public abstract class Item : Being
 
     [ContextMenuItem("ABC Number TO Number", nameof(AbcNumberToNumber))]
     [SerializeField] private string _abcNumer;
+
+    [SerializeField] private float _preparationTime = 5f;
+
+    public float GetPreparationTime()
+    {
+        return _preparationTime;
+    }
+
     public GameObject GetObj()
     {
         return _obj;
