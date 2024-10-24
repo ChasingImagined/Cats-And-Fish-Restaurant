@@ -24,28 +24,24 @@ public class Cooker : FoodDevice,IQueueable
     private float _startTime =0f;
     private float _completionAmount=0f;
 
-   
 
+    public UnityEvent _foodReadyEvent;
 
     private void Awake()
     {
         _sceneBaseDataBundel = ServiceLocator.Instance.GetService<SceneBaseDataBundel>();
+        _sceneBaseDataBundel?.GetReadyToWorkQueueBank()?.EnQueueable(this);
     }
 
     private void Start()
     {
-
-        _sceneBaseDataBundel?.GetReadyToWorkQueueBank()?.EnQueueable(this);
-
-        
-
         SceneBaseDataBundel SceneBaseDataBundel = ServiceLocator.Instance.GetService<SceneBaseDataBundel>();
         _moneyBank         = SceneBaseDataBundel?.GetMoneyBank();
         _fishMoneyBank     = SceneBaseDataBundel?.GetFishBank();
         _furitMoneyBank    = SceneBaseDataBundel?.GetFuritBank();
         _otherRawMoneyBank = SceneBaseDataBundel?.GetOtherRawBank();
 
-        Run();
+       
 
 
     }
@@ -129,7 +125,7 @@ public class Cooker : FoodDevice,IQueueable
 
             }
 
-            //_sceneBaseDataBundel?.GetReadyToWorkQueueBank()?.EnQueueable(this);
+            _foodReadyEvent?.Invoke();
         }
         else
         {

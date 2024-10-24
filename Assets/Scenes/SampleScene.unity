@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 527159340}
   - component: {fileID: 527159339}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Cooker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -590,6 +590,10 @@ MonoBehaviour:
   - rawMaterial: {fileID: 11400000, guid: fa33be74e92b13d4aae745f5840f5c67, type: 2}
     count: 700
   _workingSpeed: 1
+  _item: {fileID: 11400000, guid: 52d0c4b4f3c1a4346a43e3b05126c588, type: 2}
+  _foodReadyEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &527159340
 Transform:
   m_ObjectHideFlags: 0
@@ -724,6 +728,50 @@ Transform:
   - {fileID: 765055118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &706567875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 706567876}
+  - component: {fileID: 706567877}
+  m_Layer: 0
+  m_Name: Chef
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &706567876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706567875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.059704833, y: 0.081948616, z: -0.36483833}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &706567877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706567875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f27be3dd3b27ff47b96b78d96d8e4f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &716473813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,7 +1480,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 716473814}
   - {fileID: 1469296270}
   - {fileID: 484957647}
   - {fileID: 166970233}
@@ -1442,3 +1489,5 @@ SceneRoots:
   - {fileID: 1464791259}
   - {fileID: 1150396210}
   - {fileID: 527159340}
+  - {fileID: 706567876}
+  - {fileID: 716473814}
