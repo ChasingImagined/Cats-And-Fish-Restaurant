@@ -6,7 +6,7 @@ public abstract class Food : Item
 {
     [Header(nameof(Food))]
     //yemek hazýrlama süresi temli
-    [SerializeField] private float _preparationTime;
+    [SerializeField] private float _preparationTime = 5f;
 
     public float GetPreparationTime()
     {

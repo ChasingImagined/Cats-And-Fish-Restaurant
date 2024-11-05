@@ -34,7 +34,7 @@ MonoBehaviour:
   _obj: {fileID: 0}
   _price: 0
   _abcNumer: 
-  _preparationTime: 0
+  _preparationTime: 5
   references:
     version: 2
     RefIds: []

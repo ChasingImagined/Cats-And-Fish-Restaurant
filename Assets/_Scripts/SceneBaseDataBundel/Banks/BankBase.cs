@@ -16,6 +16,7 @@ public abstract class ResourceBankBase<T> : MonoBehaviour  where T : Resource
         {
             rc.count = number;
         }
+        //ççğğşşüüüiiöö
         else// degil ise sıfırla;
         {
             ResetValue(ref rc);

@@ -590,7 +590,7 @@ MonoBehaviour:
   - rawMaterial: {fileID: 11400000, guid: fa33be74e92b13d4aae745f5840f5c67, type: 2}
     count: 700
   _workingSpeed: 1
-  _item: {fileID: 11400000, guid: 52d0c4b4f3c1a4346a43e3b05126c588, type: 2}
+  _meal: {fileID: 11400000, guid: 52d0c4b4f3c1a4346a43e3b05126c588, type: 2}
   _foodReadyEvent:
     m_PersistentCalls:
       m_Calls: []

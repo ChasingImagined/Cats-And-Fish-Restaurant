@@ -33,5 +33,6 @@ public class EmployeeBase : MonoBehaviour,IQueueable
     private void FoodReady()
     {
         Debug.Log("Food ready");
+        _cooker = null;
     }
 }

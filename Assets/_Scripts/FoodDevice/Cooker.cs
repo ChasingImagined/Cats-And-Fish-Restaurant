@@ -1,8 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using Unity.VisualScripting;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,7 +13,7 @@ public class Cooker : FoodDevice,IQueueable
 
     [SerializeField] private List<RawMatrialAndConut> _rawMaterials = new();
     [SerializeField] private float _workingSpeed = 1f;
-    [SerializeField] private Item _item;
+    [SerializeField] private Meal _meal;
 
     private SceneBaseDataBundel _sceneBaseDataBundel;
 
@@ -45,8 +42,6 @@ public class Cooker : FoodDevice,IQueueable
 
 
     }
-
-    
 
 
     public override void Run()
@@ -125,20 +120,22 @@ public class Cooker : FoodDevice,IQueueable
 
             }
 
-            _foodReadyEvent?.Invoke();
+            
         }
         else
         {
-            if (_item == null) {
-                Debug.LogWarning("Null item");
+            if (_meal == null) {
+                Debug.LogWarning("Null Meal");
                 _isRuning = false;
                 return;
             }
 
-            _completionAmount = (Time.time - _startTime) * _workingSpeed / _item.GetPreparationTime();
+            _completionAmount = (Time.time - _startTime) * _workingSpeed / _meal.GetPreparationTime();
             if(_completionAmount >=1) {
                 _completionAmount = 1;
-                // ToDo: food ready event  invoke 
+                _foodReadyEvent?.Invoke();
+                _isRuning = false;
+                _sceneBaseDataBundel?.GetReadyToWorkQueueBank().EnQueueable(this);
             }
 
 
