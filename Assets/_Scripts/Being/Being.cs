@@ -25,7 +25,7 @@ public abstract class Being : ScriptableObject
     {
         return _descripton.GetLocalizedString();
     }
-
+    
    
 }
 

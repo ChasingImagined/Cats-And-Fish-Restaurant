@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Cooker : FoodDevice,IQueueable
+public class Cooker : FoodDeviceBase,IQueueable
 {
     
     private ResourceBankBase<Money>         _moneyBank         = null;

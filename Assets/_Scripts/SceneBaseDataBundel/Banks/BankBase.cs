@@ -1,12 +1,21 @@
 using ChasingImagined.Uitls;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
-public abstract class ResourceBankBase<T> : MonoBehaviour  where T : Resource
+public abstract class ResourceBankBase<T> : BankBase  where T : Resource
 {
     [ContextMenuItem("Price To ABC price", nameof(RecalculateAbcCountAll))]
     [ContextMenuItem("ABC Price To Price", nameof(RecalculateCountAll))]
     [SerializeField] private List<ResourceAndCount<T>> _resourceAndCount = new List<ResourceAndCount<T>>();
+
+
+    public override Type GetStoredType()
+    {
+        return typeof(T);
+    }
+
 
     // ResourceAndCount refransýnýn içindeki caount syýyýný ABC tipli sayý  degrini kulanrk hesplar;
     private void AbcNumberToNumber(ref ResourceAndCount<T> rc)
@@ -143,4 +152,10 @@ public class ResourceAndCount<T> where T : Resource
     public T resource;
     public double count;
     public string abcCount;
+}
+
+public abstract class BankBase : MonoBehaviour
+{
+    abstract public Type GetStoredType();
+
 }
