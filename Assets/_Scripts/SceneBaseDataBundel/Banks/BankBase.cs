@@ -4,17 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public abstract class ResourceBankBase<T> : BankBase  where T : Resource
+public abstract class ResourceBankBase<T> : ResourceBankBase where T : Resource
 {
     [ContextMenuItem("Price To ABC price", nameof(RecalculateAbcCountAll))]
     [ContextMenuItem("ABC Price To Price", nameof(RecalculateCountAll))]
     [SerializeField] private List<ResourceAndCount<T>> _resourceAndCount = new List<ResourceAndCount<T>>();
 
-
-    public override Type GetStoredType()
+   public override List<KeyValuePair<Resource,double>> _GetAllList()
     {
-        return typeof(T);
+        List<KeyValuePair<Resource, double>> list = new List<KeyValuePair<Resource,double>>();
+        foreach(var rac in _resourceAndCount)
+        {
+            if(rac.resource == null) continue;
+            list.Add(new KeyValuePair<Resource, double>(rac.resource, rac.count));
+        }
+        _resourceAndCount.Clear();
+        return list;
     }
+
 
 
     // ResourceAndCount refransýnýn içindeki caount syýyýný ABC tipli sayý  degrini kulanrk hesplar;
@@ -25,7 +32,7 @@ public abstract class ResourceBankBase<T> : BankBase  where T : Resource
         {
             rc.count = number;
         }
-        //ççððþþüüüiiöö
+
         else// degil ise sýfýrla;
         {
             ResetValue(ref rc);
@@ -57,9 +64,9 @@ public abstract class ResourceBankBase<T> : BankBase  where T : Resource
     }
 
     //tüm AbC tipli miktarý yeniden hesplar.
-    private void RecalculateAbcCountAll()
+    protected void RecalculateAbcCountAll()
     {
-        for (int i = 0;i < _resourceAndCount.Count;i++)
+        for (int i = 0; i < _resourceAndCount.Count; i++)
         {
             // Geçici bir deðiþken oluþturup, ref ile metodu çaðýrýyoruz.
             ResourceAndCount<T> tempRc = _resourceAndCount[i];
@@ -67,10 +74,12 @@ public abstract class ResourceBankBase<T> : BankBase  where T : Resource
             // Geçici deðiþken üzerinde yapýlan deðiþiklikleri tekrar listeye yansýtýyoruz.
             _resourceAndCount[i] = tempRc;
         }
+
+        RecalculateCountAll();
     }
 
     //tüm  Double tipili miktarlarý yeniden hesplar.
-    private void RecalculateCountAll()
+    protected void RecalculateCountAll()
     {
         for (int i = 0; i < _resourceAndCount.Count; i++)
         {
@@ -79,6 +88,7 @@ public abstract class ResourceBankBase<T> : BankBase  where T : Resource
             AbcNumberToNumber(ref tempRc);
             // Geçici deðiþken üzerinde yapýlan deðiþiklikleri tekrar listeye yansýtýyoruz.
             _resourceAndCount[i] = tempRc;
+
         }
     }
 
@@ -142,6 +152,7 @@ public abstract class ResourceBankBase<T> : BankBase  where T : Resource
         return false;
     }
 
+    
 }
 
 // kaynak ve mikatrý  içeren sýnýf.
@@ -154,8 +165,7 @@ public class ResourceAndCount<T> where T : Resource
     public string abcCount;
 }
 
-public abstract class BankBase : MonoBehaviour
+public abstract class  ResourceBankBase : MonoBehaviour
 {
-    abstract public Type GetStoredType();
-
+    abstract public List<KeyValuePair<Resource, double>> _GetAllList();
 }

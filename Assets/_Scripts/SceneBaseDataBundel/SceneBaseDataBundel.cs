@@ -15,12 +15,8 @@ public class SceneBaseDataBundel : MonoBehaviour,IService
     }
 
 
-    [Header("Banks")]
-    [SerializeField] private  ResourceBankBase<Money>         _moneyBank;
-    [SerializeField] private  ResourceBankBase<FuritMoney>    _furitBank;
-    [SerializeField] private  ResourceBankBase<FishMoney>     _fishBank;
-    [SerializeField] private  ResourceBankBase<OtherRawMoney> _otherRawBank;
-
+   
+    [SerializeField] private CentralBank _centralBank;
 
     [Header("Queues")]
 
@@ -29,37 +25,12 @@ public class SceneBaseDataBundel : MonoBehaviour,IService
 
 
 
-
-
-    #region ResourceBank Get Funcitons
-    public ResourceBankBase<Money> GetMoneyBank()
+    public CentralBank GetCentralBank()
     {
-        if(_moneyBank == null) Debug.LogWarning("Money Bank null");
-        return _moneyBank;
+        return _centralBank;
     }
 
-    public ResourceBankBase<FuritMoney> GetFuritBank()
-    {
-        if (_furitBank == null) Debug.LogWarning("Furit Bank null");
-        return _furitBank;
-    }
-
-    public ResourceBankBase<FishMoney> GetFishBank()
-    {
-        if (_fishBank == null) Debug.LogWarning("Fish Bank null");
-        return _fishBank;
-    }
-
-    public ResourceBankBase<OtherRawMoney> GetOtherRawBank()
-    {
-        if (_otherRawBank == null) Debug.LogWarning("Other Raw Bank null");
-        return _otherRawBank ;
-    }
-
-    #endregion
-
-
-
+    
 
     public QueueBank GetReadyToWorkQueueBank()
     {

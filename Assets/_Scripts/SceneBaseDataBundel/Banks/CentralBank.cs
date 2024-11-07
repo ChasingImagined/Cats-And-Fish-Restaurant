@@ -1,65 +1,97 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class CentralBank : MonoBehaviour
 {
-    private Dictionary<Type, BankBase> _banks = new();
-    public bool AddResource<T>(Resource resource,double  count) where T : Resource
-    {
-        if (resource == null) return false;
+    private Dictionary<Resource, double> _ResourceBundel = new();
+    [SerializeField] private List<ResourceBankBase> _ResourceBanks = new List<ResourceBankBase>();
 
-        if (_banks.ContainsKey(typeof(T)))
-        {
-           return ((ResourceBankBase<T>)_banks[typeof(T)]).AddResorge(resource,count);
-        } 
-        return false;
+    private void Awake()
+    {
+        foreach(var bank in _ResourceBanks) { 
+
+            if(bank == null) continue;
+            foreach (var kvp in bank._GetAllList())
+            {
+                Add(kvp.Key, kvp.Value);
+            }
+        }
+
+        Debug.Log(_ResourceBundel.Count);
     }
 
-    public bool AddResource<T>(ResourceBankBase<T> resourceBank) where T : Resource
+    // Sözlüge kaynk ekler.
+    public bool Add(Resource resource, double amount)
     {
-        if(resourceBank == null) return false;
+        if (!ResourceNullCheck(resource)) return false;
 
-        if (_banks.ContainsKey(resourceBank.GetStoredType()))
+        if (_ResourceBundel.ContainsKey(resource))
         {
-            return false;
+            _ResourceBundel[resource] += amount;
         }
-        _banks.Add(resourceBank.GetStoredType(), resourceBank);
+        else
+        {
+            _ResourceBundel.Add(resource, amount);
+        }
+
         return true;
     }
 
-    public bool ExtractResource<T>(Resource resource,Double count) where T : Resource
+    // Sözlükten belirli bir kaynaðýn sayýsýný belirtelen miktarda eskiltitr;
+    public bool TakeOut(Resource resource, double amount)
     {
-        if (resource == null) return false;
+        if (!ContainsAndNullCheck(resource)) return false;
 
-        return GetResourceBankBase<T>(resource)?.ExtractResource(resource,count) ?? false;
-    }
-
-    public bool ExtractAllResource<T>(Resource resource) where T : Resource
-    {
-        if (resource == null) return false;
-
-        ResourceBankBase<T> rsbb = GetResourceBankBase<T>(resource);
-        if (rsbb == null) return false;
-        return rsbb.ExtractResource(resource, rsbb.GetResorgeCount(resource));
-
-    }
-
-    public double GetResorgeCount<T>(Resource resource) where T : Resource
-    {  
-        return GetResourceBankBase<T>(resource)?.GetResorgeCount(resource) ?? 0d;
-    }
-
-   
-    private ResourceBankBase<T> GetResourceBankBase<T>(Resource resource) where T : Resource
-    {
-        if (_banks.ContainsKey(resource.GetType()))
+        if (_ResourceBundel[resource] >= amount)
         {
-            return (ResourceBankBase<T>)_banks[resource.GetType()];
+            _ResourceBundel[resource] -= amount;
+            return true;
         }
-        return null; 
+
+        return false;
     }
 
+    // Sözlükten belirli bir kaynaðýn tamamaýný sýfýrlar;
+    public double TakeOutAll(Resource resource)
+    {
+        if (ContainsAndNullCheck(resource))
+        {
+            double temp = _ResourceBundel[resource];
+            _ResourceBundel[resource] = 0d;
+            return temp;
+        }
+
+        return 0d;
+    }
+
+    // belirtlen kaynagýn miktarýný dönenerir;
+    public double GetAmount(Resource resource)
+    {
+        return ContainsAndNullCheck(resource) ? _ResourceBundel[resource] : 0d;
+    }
+
+    // belirtlen kaynagýn null olup olmadýgýný ögrenmeye yarar;
+    private bool ResourceNullCheck(Resource resource, bool debug = true)
+    {
+        if (resource == null)
+        {
+            if (debug) Debug.LogWarning("Resource is null.");
+            return false;
+        }
+        return true;
+    }
+
+    // belirtlen kaynagýn sözlükte olup olamdýgýný kontrol eder ;
+    private bool ContainsAndNullCheck(Resource resource, bool debug = false)
+    {
+        if (!ResourceNullCheck(resource, debug)) return false;
+
+        if (!_ResourceBundel.ContainsKey(resource))
+        {
+            if (debug) Debug.LogWarning($"{resource?.name} Resource Not Found in bank.");
+            return false;
+        }
+
+        return true;
+    }
 }

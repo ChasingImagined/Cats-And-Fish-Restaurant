@@ -5,11 +5,8 @@ using UnityEngine.Events;
 
 public class Cooker : FoodDeviceBase,IQueueable
 {
-    
-    private ResourceBankBase<Money>         _moneyBank         = null;
-    private ResourceBankBase<FishMoney>     _fishMoneyBank     = null;
-    private ResourceBankBase<FuritMoney>    _furitMoneyBank    = null;
-    private ResourceBankBase<OtherRawMoney> _otherRawMoneyBank = null;
+
+    private CentralBank _centralBank;
 
     [SerializeField] private List<RawMatrialAndConut> _rawMaterials = new();
     [SerializeField] private float _workingSpeed = 1f;
@@ -33,14 +30,8 @@ public class Cooker : FoodDeviceBase,IQueueable
     private void Start()
     {
         SceneBaseDataBundel SceneBaseDataBundel = ServiceLocator.Instance.GetService<SceneBaseDataBundel>();
-        _moneyBank         = SceneBaseDataBundel?.GetMoneyBank();
-        _fishMoneyBank     = SceneBaseDataBundel?.GetFishBank();
-        _furitMoneyBank    = SceneBaseDataBundel?.GetFuritBank();
-        _otherRawMoneyBank = SceneBaseDataBundel?.GetOtherRawBank();
-
+        _centralBank       = SceneBaseDataBundel?.GetCentralBank();
        
-
-
     }
 
 
@@ -52,9 +43,9 @@ public class Cooker : FoodDeviceBase,IQueueable
             _startTime = Time.time;
             _sceneBaseDataBundel?.GetReadyToWorkQueueBank()?.DeQueueable<Cooker>();
 
-            if (_fishMoneyBank == null || _moneyBank == null || _furitMoneyBank == null || _otherRawMoneyBank == null)
+            if (_centralBank == null)
             {
-                Debug.LogWarning("Banks are null");
+                Debug.LogWarning(" Central Bnak is null");
                 _isRuning = false;
                 return;
             }
@@ -65,35 +56,17 @@ public class Cooker : FoodDeviceBase,IQueueable
             {
 
                 RawMaterial rawMaterial = _rawMaterials[i].rawMaterial;
-                if (rawMaterial is FishMoney)
-                {
-                    if (_fishMoneyBank.GetResorgeCount(_rawMaterials[i].rawMaterial) < _rawMaterials[i].count)
-                    {
-                        notFoundRawMatrials.Add(rawMaterial);
-                    }
 
-                }
-                else if (rawMaterial is FuritMoney)
+                if (_centralBank?.GetAmount(_rawMaterials[i].rawMaterial) < _rawMaterials[i].count)
                 {
-                    if (_furitMoneyBank.GetResorgeCount(_rawMaterials[i].rawMaterial) < _rawMaterials[i].count)
-                    {
-                        notFoundRawMatrials.Add(rawMaterial);
-                    }
-
-                }
-                else if (rawMaterial is OtherRawMoney)
-                {
-                    if (_otherRawMoneyBank.GetResorgeCount(_rawMaterials[i].rawMaterial) < _rawMaterials[i].count)
-                    {
-                        notFoundRawMatrials.Add(rawMaterial);
-                    }
+                    notFoundRawMatrials.Add(rawMaterial);
                 }
 
             }
 
             if (notFoundRawMatrials.Count > 0)
             {
-                Debug.LogWarning("insufficient RawMatarial");
+                Debug.LogWarning($"{notFoundRawMatrials[0]} insufficient RawMatarial");
                 _isRuning = false;
                 return;
             }
@@ -102,25 +75,12 @@ public class Cooker : FoodDeviceBase,IQueueable
             {
 
                 RawMaterial rawMaterial = _rawMaterials[i].rawMaterial;
-                if (rawMaterial is FishMoney)
-                {
-                    bool chack = (bool)(_fishMoneyBank?.ExtractResource(_rawMaterials[i].rawMaterial, _rawMaterials[i].count));
-                    Debug.Log(chack);
-                }
-                else if (rawMaterial is FuritMoney)
-                {
-                    bool chack = (bool)(_furitMoneyBank?.ExtractResource(_rawMaterials[i].rawMaterial, _rawMaterials[i].count));
-                    Debug.Log(chack);
-                }
-                else if (rawMaterial is OtherRawMoney)
-                {
-                    bool chack = (bool)(_otherRawMoneyBank?.ExtractResource(_rawMaterials[i].rawMaterial, _rawMaterials[i].count));
-                    Debug.Log(chack);
-                }
+
+                bool chack = (bool)(_centralBank?.TakeOut(_rawMaterials[i].rawMaterial, _rawMaterials[i].count));
+                Debug.Log(chack);
 
             }
-
-            
+  
         }
         else
         {
@@ -138,16 +98,10 @@ public class Cooker : FoodDeviceBase,IQueueable
                 _sceneBaseDataBundel?.GetReadyToWorkQueueBank().EnQueueable(this);
             }
 
-
-
         }
 
-       
-
-
     }
-        
-    
+ 
 }
 
 [System.Serializable]
