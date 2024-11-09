@@ -22,7 +22,7 @@ public class SceneBaseDataBundel : MonoBehaviour,IService
 
     //Çlýþmaya hazýrurmadki makinleri ve çlýþanlarý depolar.
     private QueueBank _readyToWorkQueueBank = new();
-
+    
 
 
     public CentralBank GetCentralBank()
